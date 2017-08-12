@@ -49,6 +49,10 @@ void setRightMotorSpeed(byte speed) {
 
 AmperkaMotorShieldMovingPlatform::AmperkaMotorShieldMovingPlatform() {};
 void AmperkaMotorShieldMovingPlatform::setup() {
+
+  for(int i = 4; i <= 7; i++)
+    pinMode(i, OUTPUT);
+
   setLeftMotorSpeed(0);
   setRightMotorSpeed(0);
 };
