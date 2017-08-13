@@ -16,34 +16,45 @@
 #define SPEED_2      6
 #define DIR_2        7
 
-void setMotorSpeed(int pin, byte speed) {
-  analogWrite(pin, speed);
+class MotorInfo {
+public:
+  int speedPin;
+  int dirPin;
+  MotorInfo(int speedPin, int dirPin): speedPin(speedPin), dirPin(dirPin) {
+  }
+};
+
+MotorInfo leftMotorInfo(SPEED_1, DIR_1);
+MotorInfo rightMotorInfo(SPEED_2, DIR_2);
+
+void setMotorSpeed(const MotorInfo& motorInfo, byte speed) {
+  analogWrite(motorInfo.speedPin, speed);
 }
 
-void setMotorDir(int pin, int direction) {
+void setMotorDir(const MotorInfo& motorInfo, int direction) {
   switch (direction) {
-    case FORWARD: digitalWrite(pin, true); break;
-    case BACKWARD: digitalWrite(pin, false); break;
+    case FORWARD: digitalWrite(motorInfo.dirPin, true); break;
+    case BACKWARD: digitalWrite(motorInfo.dirPin, false); break;
     case RELEASE:
     default:
-      setMotorSpeed(pin, 0); break;
+      setMotorSpeed(motorInfo, 0);
   }
 }
 
 void setLeftMotorDir(int direction) {
-  setMotorDir(DIR_1, direction);
+  setMotorDir(leftMotorInfo, direction);
 }
 
 void setLeftMotorSpeed(int speed) {
-  setMotorSpeed(SPEED_1, speed);
+  setMotorSpeed(leftMotorInfo, speed);
 }
 
 void setRightMotorDir(int direction) {
-  setMotorDir(DIR_2, direction);
+  setMotorDir(rightMotorInfo, direction);
 }
 
 void setRightMotorSpeed(byte speed) {
-  setMotorSpeed(SPEED_2, speed);
+  setMotorSpeed(rightMotorInfo, speed);
 }
 
 
@@ -55,11 +66,6 @@ void AmperkaMotorShieldMovingPlatform::setup() {
 
   setLeftMotorSpeed(255);
   setRightMotorSpeed(255);
-
-  digitalWrite(5, HIGH);   // turn the LED on (HIGH is the voltage level)
-
-  delay(1000);
-  Serial.println("amperka setup completed");
 };
 
 void AmperkaMotorShieldMovingPlatform::setDirecton(int dir) {
@@ -88,3 +94,5 @@ void AmperkaMotorShieldMovingPlatform::setLeftSpeed(byte speed) {
 void AmperkaMotorShieldMovingPlatform::setRightSpeed(byte speed) {
   setLeftMotorSpeed(speed);
 };
+
+String AmperkaMotorShieldMovingPlatform::getName() { return String("amperka"); };

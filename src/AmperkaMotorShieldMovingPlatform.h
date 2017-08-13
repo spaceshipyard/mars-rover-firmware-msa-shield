@@ -27,6 +27,7 @@ public:
 
   void setRightSpeed(byte speed) override;
 
+  String getName() override;
 };
 
 

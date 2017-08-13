@@ -15,14 +15,13 @@ int strToDirection(String str) {
   return RELEASE;
 }
 
-Controller::Controller(MovingPlatform& aPlatform) {
-  platform = aPlatform;
-  //Serial.println("controller is created");
+Controller::Controller(const MovingPlatform* aPlatform): platform(aPlatform) {
 }
 
 void Controller::setup() {
     Serial.println("controller setup started");
-    platform.setup();
+    Serial.println(this->platform->getName());
+    this->platform->setup();
     Serial.println("controller setup completed");
 }
 
@@ -33,30 +32,30 @@ void Controller::onTick() {
       if (cmd == "direction") {
         String dirStr = Serial.readStringUntil(';');
         int dir = strToDirection(dirStr);
-        platform.setDirecton(dir);
+        platform->setDirecton(dir);
 
       } else if (cmd == "speed")  {
         String speedStr = Serial.readStringUntil(';');
-        platform.setSpeed(speedStr.toInt());
+        platform->setSpeed(speedStr.toInt());
 
       } else if (cmd == "dir-left") {
         String dirStr = Serial.readStringUntil(';');
 
-        platform.rotateToLeft();
+        platform->rotateToLeft();
 
       } else if (cmd == "dir-right") {
         String dirStr = Serial.readStringUntil(';');
-        platform.rotateToRigth();
+        platform->rotateToRigth();
 
       } else if (cmd == "speed-left") {
         String speedStr = Serial.readStringUntil(';');
-        platform.setLeftSpeed(speedStr.toInt());
+        platform->setLeftSpeed(speedStr.toInt());
 
       } else if (cmd == "speed-right") {
 
         String speedStr = Serial.readStringUntil(';');
 
-        platform.setRightSpeed(speedStr.toInt());
+        platform->setRightSpeed(speedStr.toInt());
       }
     }
   }

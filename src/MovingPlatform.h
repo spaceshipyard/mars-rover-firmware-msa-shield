@@ -18,6 +18,7 @@ public:
   virtual void rotateToLeft() {};
   virtual void setRightSpeed(byte speed) {};
   virtual void setLeftSpeed(byte speed) {};
+  virtual String getName() { return "undefined"; };
 };
 
 
