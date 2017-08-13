@@ -13,6 +13,7 @@ void setup() {
   Serial.setTimeout(2000);
   // turn on motor
   ctrl.setup();
+  Serial.println("setup completed");
 }
 
 void loop() {

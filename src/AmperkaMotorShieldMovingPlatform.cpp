@@ -49,12 +49,17 @@ void setRightMotorSpeed(byte speed) {
 
 AmperkaMotorShieldMovingPlatform::AmperkaMotorShieldMovingPlatform() {};
 void AmperkaMotorShieldMovingPlatform::setup() {
-
+  Serial.println("amperka setup started");
   for(int i = 4; i <= 7; i++)
     pinMode(i, OUTPUT);
 
-  setLeftMotorSpeed(0);
-  setRightMotorSpeed(0);
+  setLeftMotorSpeed(255);
+  setRightMotorSpeed(255);
+
+  digitalWrite(5, HIGH);   // turn the LED on (HIGH is the voltage level)
+
+  delay(1000);
+  Serial.println("amperka setup completed");
 };
 
 void AmperkaMotorShieldMovingPlatform::setDirecton(int dir) {
