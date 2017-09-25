@@ -1,11 +1,17 @@
 #ifndef _AMPERKA_MOTOR_SHIELD_MOVING_PLATFORM_H
 #define _AMPERKA_MOTOR_SHIELD_MOVING_PLATFORM_H
 
-#include <MovingPlatform.h>
 #include <Arduino.h>
 
+#define FORWARD 1
+#define BACKWARD 2
+//#define BRAKE 3
+#define RELEASE 4
 
-class AmperkaMotorShieldMovingPlatform : public MovingPlatform {
+#define uint8_t byte
+
+
+class AmperkaMotorShieldMovingPlatform {
 
 private:
 
@@ -13,21 +19,19 @@ private:
 public:
   AmperkaMotorShieldMovingPlatform();
 
-  void setup() override;
+  void setup();
 
-  void setDirecton(int dir) override;
+  void setDirecton(int dir);
 
-  void setSpeed(byte speed) override;
+  void setSpeed(byte speed);
 
-  void rotateToLeft() override;
+  void rotateToLeft();
 
-  void rotateToRigth() override;
+  void rotateToRigth();
 
-  void setLeftSpeed(byte speed) override;
+  void setLeftSpeed(byte speed);
 
-  void setRightSpeed(byte speed) override;
-
-  String getName() override;
+  void setRightSpeed(byte speed);
 };
 
 

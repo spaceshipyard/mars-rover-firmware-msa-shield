@@ -60,7 +60,6 @@ void setRightMotorSpeed(byte speed) {
 
 AmperkaMotorShieldMovingPlatform::AmperkaMotorShieldMovingPlatform() {};
 void AmperkaMotorShieldMovingPlatform::setup() {
-  Serial.println("amperka setup started");
   for(int i = 4; i <= 7; i++)
     pinMode(i, OUTPUT);
 
@@ -69,8 +68,8 @@ void AmperkaMotorShieldMovingPlatform::setup() {
 };
 
 void AmperkaMotorShieldMovingPlatform::setDirecton(int dir) {
-  setLeftMotorDir(dir);
-  setRightMotorDir(dir);
+      setLeftMotorDir(dir);
+      setRightMotorDir(dir);
 };
 
 void AmperkaMotorShieldMovingPlatform::setSpeed(byte speed) {
@@ -94,5 +93,3 @@ void AmperkaMotorShieldMovingPlatform::setLeftSpeed(byte speed) {
 void AmperkaMotorShieldMovingPlatform::setRightSpeed(byte speed) {
   setLeftMotorSpeed(speed);
 };
-
-String AmperkaMotorShieldMovingPlatform::getName() { return String("amperka"); };
