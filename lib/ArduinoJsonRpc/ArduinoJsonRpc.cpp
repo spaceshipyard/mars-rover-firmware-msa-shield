@@ -7,7 +7,6 @@
 
 CommandProcessor commands[MAXCALLBACKS];
 
-
 int callBackCount = 0;
 String inputString = ""; 
 boolean stringComplete = false;
@@ -37,11 +36,11 @@ const char* commandResultToString(CommandResult cr) {
     }
 }
 
-void handleJsonPackage(const char* json, const Print& print) {
+void handleJsonPackage(const String& json, const Print& print) {
     StaticJsonBuffer<MESSENGERBUFFERSIZE> jsonBuffer;
     StaticJsonBuffer<MESSENGERBUFFERSIZE> resultJson;
     
-    JsonObject& root = jsonBuffer.parseObject(json);
+    JsonObject& root = jsonBuffer.parseObject(json.c_str());
     
     const char* cmd = root["cmd"];
     const JsonObject& params = root["params"];
@@ -57,6 +56,7 @@ void handleJsonPackage(const char* json, const Print& print) {
     CommandResult result;
     if (!root.success()) {
         result = notJson;
+        resParams["message"] = json;
     } else {
         result = executeCommand(cmd, params, resParams);
     }
@@ -84,7 +84,7 @@ void tryToReadNextCmd(const Stream& stream) {
     
       // print the string when a newline arrives:
       if (stringComplete) {
-        handleJsonPackage(inputString.c_str(), stream);
+        handleJsonPackage(inputString, stream);
         stream.println();
         // clear the string:
         inputString = "";

@@ -16,8 +16,13 @@ int strToDirection(const String str) {
 
 AmperkaMotorShieldMovingPlatform movingPlatform;
 
-CommandResult setDirection(const JsonObject& inParams, JsonObject& outParams) {
-  movingPlatform.setDirecton(strToDirection(inParams["value"].asString()));
+inline const String asString(const JsonObject& inParams ) { return inParams["value"].asString(); };
+
+inline const int asInt(const JsonObject& inParams ) { return inParams["value"]; };
+
+CommandResult setDirection(const JsonObject& inParams, JsonObject& outParams) {  
+  movingPlatform.setDirecton(strToDirection(asString(inParams)));
+
   return processed;
 }
 
@@ -32,23 +37,22 @@ CommandResult rotateRight(const JsonObject& inParams, JsonObject& outParams) {
 }
 
 CommandResult speedLeft(const JsonObject& inParams, JsonObject& outParams) {
-  movingPlatform.setLeftSpeed(inParams["value"]);
+  movingPlatform.setLeftSpeed(asInt(inParams));
   return processed;
 }
 
 CommandResult speedRight(const JsonObject& inParams, JsonObject& outParams) {
-  movingPlatform.setRightSpeed(inParams["value"]);
+  movingPlatform.setRightSpeed(asInt(inParams));
   return processed;
 }
 
 CommandResult speed(const JsonObject& inParams, JsonObject& outParams) {
-  movingPlatform.setSpeed(inParams["value"]);
+  movingPlatform.setSpeed(asInt(inParams));
   return processed;
 }
 
 void setup() {
   Serial.begin(9600);
-  Serial.setTimeout(2000);
   movingPlatform.setup();
   attachCommandProcessor("direction", &setDirection);
   attachCommandProcessor("rotate-left", &rotateLeft);

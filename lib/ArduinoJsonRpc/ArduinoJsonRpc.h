@@ -8,7 +8,7 @@
 #define MESSENGERBUFFERSIZE 256
 #define JSON_PACKAGE_TERMINATOR '\n'
 
-enum CommandResult { processed, unknownCMD, notJson, invalidArguments };
+enum CommandResult { processed, unknownCMD, notJson };
 
 typedef CommandResult (CommandHandlerFunction) (const JsonObject& inParams, JsonObject& outParams);
 
@@ -17,7 +17,7 @@ typedef struct {
     const CommandHandlerFunction *handler;
 } CommandProcessor;
 
-void handleJsonPackage(const char* json, const Print& print);
+void handleJsonPackage(const String& json, const Print& print);
 
 void attachCommandProcessor(const char* name, const CommandHandlerFunction *handler);
 CommandResult executeCommand(const char* name, const JsonObject& inParams, JsonObject& outParams);
